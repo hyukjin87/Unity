@@ -24,14 +24,17 @@ public class ScoreKeeper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Increment the player's play time by the amount of time that has passed since the last frame.
-        playTime += Time.deltaTime;
-        // Update the text that displays the player's current time.
-        textTime.text = "Time : " + Mathf.Round(playTime);
         // If the player has won the game, call the Win() method.
         if (HasWon())
         {
             Win();
+        }
+        else
+        {
+            // Increment the player's play time by the amount of time that has passed since the last frame.
+            playTime += Time.deltaTime;
+            // Update the text that displays the player's current time.
+            textTime.text = "Time : " + Mathf.Round(playTime);
         }
     }
 
