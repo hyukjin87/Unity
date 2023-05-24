@@ -15,6 +15,7 @@ public class ScoreKeeper : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Initialize the player's play time and best time to 0.
         playTime = 0;
         bestTime = 0;
     }
@@ -23,22 +24,30 @@ public class ScoreKeeper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Increment the player's play time by the amount of time that has passed since the last frame.
         playTime += Time.deltaTime;
+        // Update the text that displays the player's current time.
         textTime.text = "Time : " + Mathf.Round(playTime);
-        if(HasWon())
+        // If the player has won the game, call the Win() method.
+        if (HasWon())
         {
             Win();
         }
     }
 
+    // Determines if the player has won the game.
     public bool HasWon()
     {
         int i = 0;
-        foreach(Selectable topStack in topStacks)
+        // Loop through each top stack of cards.
+        foreach (Selectable topStack in topStacks)
         {
+            // Add the value of the top card in each stack to the counter variable.
             i += topStack.value;
         }
-        if(i>=52)
+        // If the counter variable is greater than or equal to 52
+        // (the total number of cards in the deck), the player has won the game.
+        if (i>=52)
         {
             return true;
         }
@@ -48,13 +57,17 @@ public class ScoreKeeper : MonoBehaviour
         }
     }
 
+    // Called when the player has won the game.
     public void Win()
-    {        
-        if(playTime>bestTime)
+    {
+        // If the player's play time is greater than their best time,
+        // update their best time and update the text that displays the player's best time.
+        if (playTime>bestTime)
         {
             bestTime = playTime;
             recordTime.text = "Best Record: "+ Mathf.Round(bestTime);
         }
+        // Activate the high score panel.
         highScorePanel.SetActive(true);
     }
 }

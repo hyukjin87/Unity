@@ -20,24 +20,33 @@ public class UIButtons : MonoBehaviour
         
     }
 
+    // This method is called when the play again button is clicked.
     public void PlayAgain()
     {
+        // Deactivate the high score panel.
         highScorePanel.SetActive(false);
+        // Reset the game scene.
         ResetScene();
     }
 
+    // This method resets the game scene.
     public void ResetScene()
     {
+        // Reset the game play time.
         gamePlayTime.playTime = 0;
+        // Destroy all the cards in the scene.
         UpdateSprite[] cards = FindObjectsOfType<UpdateSprite>();
         foreach (UpdateSprite card in cards)
         {
             Destroy(card.gameObject);
         }
+        // Clear the top value of all the selectables in the scene.
         ClearTopValue();
+        // Start playing the cards again.
         FindObjectOfType<Solitaire>().PlayCards();
     }
 
+    // This method clears the top value of all the selectables in the scene.
     void ClearTopValue()
     {
         Selectable[] selectables = FindObjectsOfType<Selectable>();
@@ -51,19 +60,24 @@ public class UIButtons : MonoBehaviour
         }
     }
 
+    // This method is called when the hard mode option is clicked.
     public void isHardOption()
     {
+        // Get the Solitaire script instance.
         Solitaire option = FindObjectOfType<Solitaire>();
+        // If the hard option is false, set it to true and update the text.
         if (option.HardOption==false)
         {
             hardText.text = "NORMAL MODE";
             option.HardOption = true;
         }
+        // If the hard option is true, set it to false and update the text.
         else
         {
             hardText.text = "HARD MODE";
             option.HardOption = false;
         }
+        // Reset the game scene.
         ResetScene();
     }
 }

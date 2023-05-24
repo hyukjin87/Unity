@@ -19,40 +19,52 @@ public class UpdateSprite : MonoBehaviour
         solitaire = FindObjectOfType<Solitaire>();
         userInput = FindObjectOfType<UserInput>();
 
+        // Loop through the deck of cards
         int i = 0;
         foreach(string card in deck)
         {
-            if(this.name == card)
+            // If the name of this card object matches the current card in the deck
+            if (this.name == card)
             {
+                // Set the card face sprite to the corresponding sprite in the Solitaire script
                 cardFace = solitaire.cardFaces[i];
                 break;
             }
             i++;
         }
+        // Get the sprite renderer component of the card object
         spriteRenderer = GetComponent<SpriteRenderer>();
+        // Get the selectable component of the card object
         selectable = GetComponent<Selectable>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // If the card is face up
         if (selectable.faceUp == true) 
         {
+            // Set the sprite to the card face sprite
             spriteRenderer.sprite = cardFace;
         }
         else
         {
+            // Set the sprite to the card back sprite
             spriteRenderer.sprite = cardBack;
         }
 
-        if(userInput.slot1)
+        // If the user has selected a card slot
+        if (userInput.slot1)
         {
+            // If this card object matches the selected card slot
             if (name == userInput.slot1.name)
             {
+                // Change the color of the sprite to yellow
                 spriteRenderer.color = Color.yellow;
             }
             else
             {
+                // Change the color of the sprite to white
                 spriteRenderer.color = Color.white;
             }
         }           
